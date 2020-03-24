@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>test</title>
+    <link href="/2020/03/24/test/"/>
+    <url>/2020/03/24/test/</url>
+    
+    <content type="html"><![CDATA[<p>111</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>story</title>
+    <link href="/2020/03/24/story/"/>
+    <url>/2020/03/24/story/</url>
+    
+    <content type="html"><![CDATA[<p>置顶测试</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>闲情逸致</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>关于Spring Cloud Eureka注册中心引入Spring Security后，服务无法注册的问题</title>
+    <link href="/2020/03/24/20032401/"/>
+    <url>/2020/03/24/20032401/</url>
+    
+    <content type="html"><![CDATA[<p><strong>报错：</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server</span><br><span class="line">at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:<span class="number">112</span>) ~[eureka-client-<span class="number">1.9</span><span class="number">.17</span>.jar:<span class="number">1.9</span><span class="number">.17</span>]</span><br><span class="line">at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:<span class="number">56</span>) ~[eureka-client-<span class="number">1.9</span><span class="number">.17</span>.jar:<span class="number">1.9</span><span class="number">.17</span>]</span><br><span class="line">at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$<span class="number">1</span>.execute(EurekaHttpClientDecorator.java:<span class="number">59</span>) ~[eureka-client-<span class="number">1.9</span><span class="number">.17</span>.jar:<span class="number">1.9</span><span class="number">.17</span>]</span><br><span class="line">at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:<span class="number">77</span>) ~[eureka-client-<span class="number">1.9</span><span class="number">.17</span>.jar:<span class="number">1.9</span><span class="number">.17</span>]</span><br><span class="line">at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:<span class="number">56</span>) ~[eureka-client-<span class="number">1.9</span><span class="number">.17</span>.jar:<span class="number">1.9</span><span class="number">.17</span>]</span><br><span class="line">at com.netflix.discovery.DiscoveryClient.register(DiscoveryClient.java:<span class="number">850</span>) ~[eureka-client-<span class="number">1.9</span><span class="number">.17</span>.jar:<span class="number">1.9</span><span class="number">.17</span>]</span><br><span class="line">at com.netflix.discovery.InstanceInfoReplicator.run(InstanceInfoReplicator.java:<span class="number">121</span>) [eureka-client-<span class="number">1.9</span><span class="number">.17</span>.jar:<span class="number">1.9</span><span class="number">.17</span>]</span><br><span class="line">at com.netflix.discovery.InstanceInfoReplicator$<span class="number">1</span>.run(InstanceInfoReplicator.java:<span class="number">101</span>) [eureka-client-<span class="number">1.9</span><span class="number">.17</span>.jar:<span class="number">1.9</span><span class="number">.17</span>]</span><br><span class="line">at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:<span class="number">511</span>) [na:<span class="number">1.8</span><span class="number">.0_231</span>]</span><br><span class="line">at java.util.concurrent.FutureTask.run(FutureTask.java:<span class="number">266</span>) [na:<span class="number">1.8</span><span class="number">.0_231</span>]</span><br><span class="line">at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$<span class="number">201</span>(ScheduledThreadPoolExecutor.java:<span class="number">180</span>) [na:<span class="number">1.8</span><span class="number">.0_231</span>]</span><br><span class="line">at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:<span class="number">293</span>) [na:<span class="number">1.8</span><span class="number">.0_231</span>]</span><br><span class="line">at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:<span class="number">1149</span>) [na:<span class="number">1.8</span><span class="number">.0_231</span>]</span><br><span class="line">at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:<span class="number">624</span>) [na:<span class="number">1.8</span><span class="number">.0_231</span>]</span><br><span class="line">at java.lang.Thread.run(Thread.java:<span class="number">748</span>) [na:<span class="number">1.8</span><span class="number">.0_231</span>]</span><br></pre></td></tr></table></figure><p><strong>原因：</strong></p><p>新版本的security默认开启csrf了，关掉就好了</p><p><strong>解决：</strong></p><p>新键WebSecurityConfig类，修改默认配置</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        http.csrf().disable(); <span class="comment">// 关闭csrf</span></span><br><span class="line">        http.authorizeRequests().anyRequest().authenticated().and().httpBasic(); <span class="comment">// 开启认证</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>技术记录</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/2020/03/24/hello-world/"/>
+    <url>/2020/03/24/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  
+</search>
