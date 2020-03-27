@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>关于Nacos连接Mysql8.0版本不支持</title>
+    <link href="/2020/03/27/20032701/"/>
+    <url>/2020/03/27/20032701/</url>
+    
+    <content type="html"><![CDATA[<p><strong>原因：</strong></p><p>mysql8.0以后驱动有所变化，无法使用旧驱动连接。</p><p><strong>解决：</strong></p><p>1、修改目录下pom.xml文件中的mysql驱动</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;8.0.16&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure><p>2、 修改naming这个项目 com.alibaba.nacos.naming.healthcheck 包下的 MysqlHealthCheckProcessor 类，引入的驱动包修改为：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.mysql.cj.jdbc.MysqlDataSource;</span><br></pre></td></tr></table></figure><p>3、 修改 console这项目 resources/META-INF下 nacos-default.properties这个文件 ，如下：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.url<span class="number">.0</span>=jdbc:mysql:<span class="comment">//localhost:3306/nacos?serverTimezone=UTC&amp;characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true</span></span><br><span class="line">db.url<span class="number">.1</span>=jdbc:mysql:<span class="comment">//localhost:3306/nacos?serverTimezone=UTC&amp;characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true</span></span><br></pre></td></tr></table></figure><p> 注意：在db.url.0中添加时区 serverTimezone=UTC </p><p>4、打包</p><p> cmd命令窗口进入项目根目录执行： </p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn -Prelease-nacos clean install -U</span><br></pre></td></tr></table></figure><p> 执行完成之后打包好的文件在项目根目录下： </p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">根目录\distribution\target</span><br></pre></td></tr></table></figure><p>5、修改配置</p><p> 打开conf目录下的配置文件，在末尾添加数据源配置： </p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.platform=mysql</span><br><span class="line">db.num=<span class="number">1</span></span><br><span class="line">db.url<span class="number">.0</span>=jdbc:mysql:<span class="comment">//localhost:3306/nacos?characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true&amp;serverTimezone=UTC</span></span><br><span class="line">db.user=root</span><br><span class="line">db.password=<span class="number">123456</span></span><br></pre></td></tr></table></figure><p>6、 然后在MySQL数据库中新建nacos数据库，并导入Nacos解压包conf目录下的nacos-mysql.sql脚本 </p><p>7、启动</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>技术记录</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>test</title>
     <link href="/2020/03/24/test/"/>
     <url>/2020/03/24/test/</url>
