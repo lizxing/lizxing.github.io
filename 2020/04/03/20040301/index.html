@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Hexo</title>
+  <title>关于程序连接远程数据库错误，而使用数据库连接工具正常 ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -37,7 +37,7 @@
 
 
 <body>
-  <header style="height: 100vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -96,7 +96,7 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="view intro-2" id="background" false
          style="background: url('/img/th.jpg')no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
@@ -107,12 +107,43 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Friday, April 3rd 2020, 5:10 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    106 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
-          
-            <div class="scroll-down-bar">
-              <i class="fas fa-angle-down scroll-down-arrow"></i>
-            </div>
           
         </div>
       </div>
@@ -121,246 +152,65 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p><strong>报错：</strong></p>
+<p><img src="E:%5CTypora%5Cimg%5Ca.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>原因：</strong>（待明确）</p>
+<p>上次连接未断开。</p>
+<p>1、程序上在结束时未正常断开，导致服务端已放弃链接而客户端（程序）链接还存在，下次查询时未重新建立链接。</p>
+<p>2、服务端还保留着链接，而客户端（程序）在建立连接时检测到链接已被占用导致异常。</p>
+<p><strong>解决：</strong></p>
+<p>重启服务端sql server服务。</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
                 
-
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/03/24/story/">
-        <p class="h4 index-header">story</p>
-      </a>
-
-      <a href="/2020/03/24/story/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">置顶测试
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-24&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E9%97%B2%E6%83%85%E9%80%B8%E8%87%B4">闲情逸致</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/04/03/20040301/">
-        <p class="h4 index-header">关于程序连接远程数据库错误，而使用数据库连接工具正常</p>
-      </a>
-
-      <a href="/2020/04/03/20040301/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">报错：
-
-原因：（待明确）
-上次连接未断开。
-1、程序上在结束时未正常断开，导致服务端已放弃链接而客户端（程序）链接还存在，下次查询时未重新建立链接。
-2、服务端还保留着链接，而客户端（程序）在建立连接时检测到链接已被占用导致异常。
-解决：
-重启服务端sql server服务。
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-03&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E6%8A%80%E6%9C%AF%E8%AE%B0%E5%BD%95">技术记录</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/03/27/20032701/">
-        <p class="h4 index-header">关于Nacos连接Mysql8.0版本不支持</p>
-      </a>
-
-      <a href="/2020/03/27/20032701/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">原因：
-mysql8.0以后驱动有所变化，无法使用旧驱动连接。
-解决：
-1、修改目录下pom.xml文件中的mysql驱动
-12345&lt;dependency&gt;    &lt;groupId&gt;mysql&lt;/groupId&gt;    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;    &lt;version&gt;8.0.16&lt;/version&gt;&lt;/dependency&gt;
-
-2、 修改naming这个项目 com.alibaba.nacos.naming.healthcheck 包下的 MysqlHealthCheckProcessor 类，引入的驱动包修改为：
-1import com.mysql.cj.jdbc.MysqlDataSource;
-
-3、 修改 console这项目 resources/META-INF下 nacos-default.properties这个文件 ，如下：
-12db.url.0=jdbc:mysql://localhost:3306/na</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-27&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E6%8A%80%E6%9C%AF%E8%AE%B0%E5%BD%95">技术记录</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/03/24/test/">
-        <p class="h4 index-header">test</p>
-      </a>
-
-      <a href="/2020/03/24/test/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">111
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-24&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/03/24/20032401/">
-        <p class="h4 index-header">关于Spring Cloud Eureka注册中心引入Spring Security后，服务无法注册的问题</p>
-      </a>
-
-      <a href="/2020/03/24/20032401/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">报错：
-12345678910111213141516com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112) ~[eureka-client-1.9.17.jar:1.9.17]	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:56) ~[eureka-client-1.9.17.jar:1.9.17]	at com.netflix.discovery.shared.transport.decorator.Eurek</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-24&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E6%8A%80%E6%9C%AF%E8%AE%B0%E5%BD%95">技术记录</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/03/24/hello-world/">
-        <p class="h4 index-header">Hello World</p>
-      </a>
-
-      <a href="/2020/03/24/hello-world/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new "My New Post"
-
-More info: Writing
-Run server1$ hexo server
-
-More info: Server
-Generate static files1$ hexo generate
-
-More info: Generating
-Deploy to remote sites1$ hexo deploy
-
-More info: Deployment
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-24&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-              </div>
-            </div>
+                  <a class="hover-with-bg" href="/tags/%E6%8A%80%E6%9C%AF%E8%AE%B0%E5%BD%95">技术记录</a>
+                
+              </span>
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -439,6 +289,11 @@ More info: Deployment
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
@@ -471,7 +326,7 @@ More info: Deployment
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "极悲、极乐、平和，每个必经阶段都有其美妙之处&nbsp;",
+        "关于程序连接远程数据库错误，而使用数据库连接工具正常&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 100,

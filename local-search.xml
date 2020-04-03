@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>关于程序连接远程数据库错误，而使用数据库连接工具正常</title>
+    <link href="/2020/04/03/20040301/"/>
+    <url>/2020/04/03/20040301/</url>
+    
+    <content type="html"><![CDATA[<p><strong>报错：</strong></p><p><img src="E:%5CTypora%5Cimg%5Ca.png" srcset="/img/loading.gif" alt=""></p><p><strong>原因：</strong>（待明确）</p><p>上次连接未断开。</p><p>1、程序上在结束时未正常断开，导致服务端已放弃链接而客户端（程序）链接还存在，下次查询时未重新建立链接。</p><p>2、服务端还保留着链接，而客户端（程序）在建立连接时检测到链接已被占用导致异常。</p><p><strong>解决：</strong></p><p>重启服务端sql server服务。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>技术记录</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>关于Nacos连接Mysql8.0版本不支持</title>
     <link href="/2020/03/27/20032701/"/>
     <url>/2020/03/27/20032701/</url>
