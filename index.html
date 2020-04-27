@@ -168,6 +168,94 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/04/27/20042703/">
+        <p class="h4 index-header">关于springboot部署在windows系统</p>
+      </a>
+
+      <a href="/2020/04/27/20042703/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">问题：
+若springboot通过在cmd窗口运行java -jar的方式部署在windows系统，在cmd窗口关闭后，服务会同时关闭。
+以下方式可以把服务注册到系统并长期运行：
+
+首先下载WinSW。这是一个把服务在系统上注册、卸载的工具，github上开源。可以在这里下载WinSW的github地址。主要下载winsw.exe和winsw.xml两个文件，下载后放入一个目录例如winsw。
+
+下载后把这两个文件修改为服务的名字。并打开xml文件编写配置，示例如下：
+12345678&lt;service&gt;  &lt;id&gt;xxx-service&lt;/id&gt; &lt;!--服务ID--&gt;  &lt;name&gt;xxx后端服务&lt;/name&gt; &lt;!--服务名--&gt;  &lt;description&gt;xxx后端服务&lt;/description&gt; &lt;!--服务描述--&gt;  &lt;executable&gt;F:\Java\xxx部署测试\jre1.8.0_231\bin\java&lt;/executabl</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-27&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E8%AE%B0%E5%BD%95">技术记录</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/04/27/20042702/">
+        <p class="h4 index-header">使用SSH连接数据库示例代码记录</p>
+      </a>
+
+      <a href="/2020/04/27/20042702/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">需求：
+数据库使用普通连接失败，需要使用ssh连接方式。
+原本配置：
+12345oil-pay:	url: jdbc:mysql://ip:3306/数据库名?Unicode=true&amp;characterEncoding=UTF-8	username: 用户名	password: 密码	driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+
+使用ssh需要修改配置及增加代码:
+ssh配置：
+12345oil-pay:	url: jdbc:mysql://127.0.0.1:3307/数据库名?Unicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false	username: 用户名同上	password: 密码同上	driver-class-name: com.mysql.cj.jdbc.Driver
+
+增加config代码：
+
+编写MyContextListener实现ServletContextListener
+
+123456789101112131415161718192021222</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-27&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E8%AE%B0%E5%BD%95">技术记录</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/04/27/20042701/">
         <p class="h4 index-header">关于List遍历过程中删除元素报错问题</p>
       </a>
