@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>关于List遍历过程中删除元素报错问题</title>
+    <link href="/2020/04/27/20042701/"/>
+    <url>/2020/04/27/20042701/</url>
+    
+    <content type="html"><![CDATA[<p><strong>报错：</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.util.ConcurrentModificationException: <span class="keyword">null</span></span><br><span class="line">at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:<span class="number">909</span>) ~[na:<span class="number">1.8</span><span class="number">.0_231</span>]</span><br><span class="line">at java.util.ArrayList$Itr.next(ArrayList.java:<span class="number">859</span>) ~[na:<span class="number">1.8</span><span class="number">.0_231</span>]</span><br></pre></td></tr></table></figure><p><strong>问题代码：</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (RptShiftCashCurrencyNEntity rptShiftCashCurrencyNEntity : rptShiftCashCurrencyNEntityList) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">"B"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType()) || <span class="string">"G"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType()) || <span class="string">"N"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType()) || <span class="string">"8"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType()) || <span class="string">"9"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType())) &#123;</span><br><span class="line">                rptShiftCashCurrencyNEntityList.remove(rptShiftCashCurrencyNEntity);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure><p><strong>在解决问题前，先看一段简化代码：</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(String s:list)&#123;</span><br><span class="line">    <span class="keyword">if</span>(s.equals(<span class="string">"B"</span>))&#123;</span><br><span class="line">        list.remove(x);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这种写法会存在问题，会抛出ConcurrentModificationException。 因为元素在使用的时候发生了并发的修改，导致异常抛出。但是删除完毕马上使用break跳出，则不会触发报错。 </p><p><strong>解决：</strong></p><p>使用迭代器完成删除。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;String&gt; it = list.iterator();</span><br><span class="line"><span class="keyword">while</span>(it.hasNext())&#123;</span><br><span class="line">    String s = it.next();</span><br><span class="line">    <span class="keyword">if</span>(s.equals(<span class="string">"B"</span>))&#123;</span><br><span class="line">        it.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>问题代码修改为：</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;RptShiftCashCurrencyNEntity&gt; it = rptShiftCashCurrencyNEntityList.iterator();</span><br><span class="line">        <span class="keyword">while</span>(it.hasNext()) &#123;</span><br><span class="line">            RptShiftCashCurrencyNEntity rptShiftCashCurrencyNEntity = it.next();</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">"B"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType()) || <span class="string">"G"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType()) || <span class="string">"N"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType()) || <span class="string">"8"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType()) || <span class="string">"9"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType())) &#123;</span><br><span class="line">                it.remove();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure><p><strong>也可以使用java8特性removeIf方法：</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rptShiftCashCurrencyNEntityList.removeIf(rptShiftCashCurrencyNEntity -&gt; <span class="string">"B"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType()) || <span class="string">"G"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType()) || <span class="string">"N"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType()) || <span class="string">"8"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType()) || <span class="string">"9"</span>.equals(rptShiftCashCurrencyNEntity.getPosPayType()));</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>技术记录</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>关于程序连接远程数据库错误，而使用数据库连接工具正常</title>
     <link href="/2020/04/03/20040301/"/>
     <url>/2020/04/03/20040301/</url>
@@ -36,19 +55,6 @@
       <tag>技术记录</tag>
       
     </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>test</title>
-    <link href="/2020/03/24/test/"/>
-    <url>/2020/03/24/test/</url>
-    
-    <content type="html"><![CDATA[<p>111</p>]]></content>
-    
-    
     
   </entry>
   
