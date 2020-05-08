@@ -202,6 +202,43 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/05/08/20050801/">
+        <p class="h4 index-header">关于Java中使用List或Map中的contains或containsKey方法判断自定义对象</p>
+      </a>
+
+      <a href="/2020/05/08/20050801/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">对于普通Java类型：
+12345678910List&lt;String&gt; testList = new ArrayList&lt;&gt;();testList.add("A");testList.add("B");testList.add("C");String newStr = "A";if (testList.contains(newStr))&#123;   	return "exist";&#125;else &#123;   	return "no exist";&#125;
+
+但对于自定义类型，直接使用contains方法不能达到预期效果：
+12345678910List&lt;User&gt; testList = new ArrayList&lt;&gt;();testList.add(new User(1,"A"));testList.add(new User(2,"B"));testList.add(new User(3,"C"));User newUser = new User(1,"A");if (testList.contains(newUser)</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-08&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E8%AE%B0%E5%BD%95">技术记录</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/04/27/20042703/">
         <p class="h4 index-header">关于springboot部署在windows系统</p>
       </a>
