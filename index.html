@@ -202,6 +202,53 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/06/24/20062401/">
+        <p class="h4 index-header">关于在Springboot中同时使用@AllArgsConstructor和@Value出现的问题</p>
+      </a>
+
+      <a href="/2020/06/24/20062401/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">场景：
+
+类上用@AllArgsConstructor注解来实现Bean的构造函数方式的注入 
+
+参数包括@Value注解下的属性
+
+
+报错：
+123Description:Parameter 8 of constructor in com.zhongkerd.job.service.jobhandler.kalibrate.KalibrateOilPriceServiceImpl required a bean of type 'java.lang.String' that could not be found.无法找到配置信息。
+
+
+
+解决：
+若类内有@Value注解，使用@RequiredArgsConstructor代替@AllArgsConstructor，然后把需要注入的bean改成final类型。
+</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-24&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E8%AE%B0%E5%BD%95">技术记录</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/05/08/20050802/">
         <p class="h4 index-header">修改springboot中默认日志logback的配置</p>
       </a>
@@ -487,41 +534,19 @@ mysql8.0以后驱动有所变化，无法使用旧驱动连接。
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/03/24/20032401/">
-        <p class="h4 index-header">关于Spring Cloud Eureka注册中心引入Spring Security后，服务无法注册的问题</p>
-      </a>
-
-      <a href="/2020/03/24/20032401/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">报错：
-12345678910111213141516com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112) ~[eureka-client-1.9.17.jar:1.9.17]	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:56) ~[eureka-client-1.9.17.jar:1.9.17]	at com.netflix.discovery.shared.transport.decorator.Eurek</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-24&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E6%8A%80%E6%9C%AF%E8%AE%B0%E5%BD%95">技术记录</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
 
 
+  <nav aria-label="index posts navigation">
+    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 

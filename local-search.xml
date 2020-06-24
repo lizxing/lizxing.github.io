@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>关于在Springboot中同时使用@AllArgsConstructor和@Value出现的问题</title>
+    <link href="/2020/06/24/20062401/"/>
+    <url>/2020/06/24/20062401/</url>
+    
+    <content type="html"><![CDATA[<p><strong>场景：</strong></p><ul><li><p>类上用@AllArgsConstructor注解来实现Bean的构造函数方式的注入 </p></li><li><p>参数包括@Value注解下的属性</p></li></ul><p><strong>报错：</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Description:</span><br><span class="line">Parameter <span class="number">8</span> of constructor in com.zhongkerd.job.service.jobhandler.kalibrate.KalibrateOilPriceServiceImpl required a bean of type <span class="string">'java.lang.String'</span> that could not be found.</span><br><span class="line">无法找到配置信息。</span><br></pre></td></tr></table></figure><p><strong>解决：</strong></p><p>若类内有@Value注解，使用@RequiredArgsConstructor代替@AllArgsConstructor，然后把需要注入的bean改成final类型。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>技术记录</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>修改springboot中默认日志logback的配置</title>
     <link href="/2020/05/08/20050802/"/>
     <url>/2020/05/08/20050802/</url>
