@@ -202,6 +202,65 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/06/30/20063001/">
+        <p class="h4 index-header">redis总结与在java中的简单使用</p>
+      </a>
+
+      <a href="/2020/06/30/20063001/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">
+本文简单记录redis的相关总结与简单使用
+
+目录：一、使用篇
+简单认识redis
+redis的安装与启动
+springboot集成redis与简单使用
+redis用作分布式锁
+
+二、总结篇
+redis的数据类型
+redis的持久化机制
+redis的过期策略及内存淘汰机制
+redis为什么快
+redis如何保证原子性
+redis如何实现异步和非阻塞
+redis事务
+关于缓存存在的问题
+
+一、使用篇
+1.简单认识redis关于NoSQLNoSQL(NoSQL = Not Only SQL )，意即“不仅仅是SQL”，泛指非关系型的数据库。
+
+随着互联网web2.0网站的兴起，传统的关系数据库在应付web2.0网站，特别是超大规模和高并发的SNS类型的web2.0纯动态网站已经显得力不从心，暴露了很多难以克服的问题，而非关系型的数据库则由于其本身的特点得到了非常迅速的发展。NoSQL数据库的产生就是为了解决大规模数据集合多重数据种类带来的挑战，尤其是大数据应用难题。
+
+而redis是一个以key-value形式存储数据的非关系型数据库。
+redis应用场景
+会话缓存。即session c</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-30&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E8%AE%B0%E5%BD%95">技术记录</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/06/24/20062401/">
         <p class="h4 index-header">关于在Springboot中同时使用@AllArgsConstructor和@Value出现的问题</p>
       </a>
@@ -479,49 +538,6 @@ ssh配置：
       <div class="index-btm">
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-03&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E6%8A%80%E6%9C%AF%E8%AE%B0%E5%BD%95">技术记录</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/03/27/20032701/">
-        <p class="h4 index-header">关于Nacos连接Mysql8.0版本不支持</p>
-      </a>
-
-      <a href="/2020/03/27/20032701/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">原因：
-mysql8.0以后驱动有所变化，无法使用旧驱动连接。
-解决：
-1、修改目录下pom.xml文件中的mysql驱动
-12345&lt;dependency&gt;    &lt;groupId&gt;mysql&lt;/groupId&gt;    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;    &lt;version&gt;8.0.16&lt;/version&gt;&lt;/dependency&gt;
-
-2、 修改naming这个项目 com.alibaba.nacos.naming.healthcheck 包下的 MysqlHealthCheckProcessor 类，引入的驱动包修改为：
-1import com.mysql.cj.jdbc.MysqlDataSource;
-
-3、 修改 console这项目 resources/META-INF下 nacos-default.properties这个文件 ，如下：
-12db.url.0=jdbc:mysql://localhost:3306/na</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-27&nbsp;&nbsp;
         
         
         
