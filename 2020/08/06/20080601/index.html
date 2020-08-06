@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="关于List遍历过程中删除元素报错问题, star talk">
+    <meta name="keywords" content="手把手教你搭建hexo博客（小白向）, star talk">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>关于List遍历过程中删除元素报错问题 | star talk</title>
+    <title>手把手教你搭建hexo博客（小白向） | star talk</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -206,7 +206,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">关于List遍历过程中删除元素报错问题</h1>
+                    <h1 class="description center-align post-title">手把手教你搭建hexo博客（小白向）</h1>
                 </div>
             </div>
         </div>
@@ -339,7 +339,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-27
+                    2020-08-06
                 </div>
                 
 
@@ -348,7 +348,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    252
+                    481
                 </div>
                 
 
@@ -360,43 +360,72 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><strong>报错：</strong></p>
-<pre class=" language-java"><code class="language-java">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ConcurrentModificationException<span class="token operator">:</span> null
-    at java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList$Itr<span class="token punctuation">.</span><span class="token function">checkForComodification</span><span class="token punctuation">(</span>ArrayList<span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">909</span><span class="token punctuation">)</span> <span class="token operator">~</span><span class="token punctuation">[</span>na<span class="token operator">:</span><span class="token number">1.8</span><span class="token punctuation">.</span>0_231<span class="token punctuation">]</span>
-    at java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList$Itr<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span>ArrayList<span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">859</span><span class="token punctuation">)</span> <span class="token operator">~</span><span class="token punctuation">[</span>na<span class="token operator">:</span><span class="token number">1.8</span><span class="token punctuation">.</span>0_231<span class="token punctuation">]</span></code></pre>
-<p><strong>问题代码：</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">for</span> <span class="token punctuation">(</span>RptShiftCashCurrencyNEntity rptShiftCashCurrencyNEntity <span class="token operator">:</span> rptShiftCashCurrencyNEntityList<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"G"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"N"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"8"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"9"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                rptShiftCashCurrencyNEntityList<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span></code></pre>
-<p><strong>在解决问题前，先看一段简化代码：</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">for</span><span class="token punctuation">(</span>String s<span class="token operator">:</span>list<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        list<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>    
-<span class="token punctuation">}</span></code></pre>
-<p>这种写法会存在问题，会抛出ConcurrentModificationException。 因为元素在使用的时候发生了并发的修改，导致异常抛出。但是删除完毕马上使用break跳出，则不会触发报错。 </p>
-<p><strong>解决：</strong></p>
-<p>使用迭代器完成删除。</p>
-<pre class=" language-java"><code class="language-java">Iterator<span class="token operator">&lt;</span>String<span class="token operator">></span> it <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">while</span><span class="token punctuation">(</span>it<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    String s <span class="token operator">=</span> it<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        it<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<p><strong>问题代码修改为：</strong></p>
-<pre class=" language-java"><code class="language-java">Iterator<span class="token operator">&lt;</span>RptShiftCashCurrencyNEntity<span class="token operator">></span> it <span class="token operator">=</span> rptShiftCashCurrencyNEntityList<span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span><span class="token punctuation">(</span>it<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            RptShiftCashCurrencyNEntity rptShiftCashCurrencyNEntity <span class="token operator">=</span> it<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"G"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"N"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"8"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"9"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                it<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span></code></pre>
-<p><strong>也可以使用java8特性removeIf方法：</strong></p>
-<pre class=" language-java"><code class="language-java">        rptShiftCashCurrencyNEntityList<span class="token punctuation">.</span><span class="token function">removeIf</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity <span class="token operator">-</span><span class="token operator">></span> <span class="token string">"B"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"G"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"N"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"8"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"9"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rptShiftCashCurrencyNEntity<span class="token punctuation">.</span><span class="token function">getPosPayType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
+                <blockquote>
+<p>由于最近有些非计算机行业的朋友对这个博客的搭建有兴趣，但是官网和网上的教程都或多或少涉及到一些开发上的东西。所以有了这篇文章，从小白的角度，零开发基础搭建hexo博客。</p>
+<p>关于hexo博客的详细介绍建议到官网瞧一瞧 <a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">https://hexo.io/zh-cn/</a> </p>
+</blockquote>
+<h3 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h3><h4 id="一、搭建篇"><a href="#一、搭建篇" class="headerlink" title="一、搭建篇"></a>一、搭建篇</h4><ol>
+<li>简单认识node,npm等工具</li>
+<li>安装hexo</li>
+<li>修改配置示例</li>
+<li>本地运行</li>
+</ol>
+<h4 id="二、部署篇"><a href="#二、部署篇" class="headerlink" title="二、部署篇"></a>二、部署篇</h4><ol>
+<li>以github作为载体部署博客</li>
+<li>个人域名申请</li>
+<li>为github page配置个人域名</li>
+</ol>
+<h3 id="一、搭建篇-1"><a href="#一、搭建篇-1" class="headerlink" title="一、搭建篇"></a>一、搭建篇</h3><hr>
+<h4 id="1-简单认识node-npm（不感兴趣可直接跳到安装步骤）"><a href="#1-简单认识node-npm（不感兴趣可直接跳到安装步骤）" class="headerlink" title="1.简单认识node,npm（不感兴趣可直接跳到安装步骤）"></a>1.简单认识node,npm（不感兴趣可直接跳到安装步骤）</h4><h5 id="关于node"><a href="#关于node" class="headerlink" title="关于node"></a>关于node</h5><p>node.js是javascript的一种运行环境。以下取自百度百科：</p>
+<blockquote>
+<p>Node.js 是一个基于 Chrome V8 引擎的 <a href="https://baike.baidu.com/item/JavaScript/321142" target="_blank" rel="noopener">JavaScript</a> 运行环境。 Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型。 [1] </p>
+<p>Node 是一个让 JavaScript 运行在<a href="https://baike.baidu.com/item/服务端/6492316" target="_blank" rel="noopener">服务端</a>的开发平台，它让 JavaScript 成为与<a href="https://baike.baidu.com/item/PHP/9337" target="_blank" rel="noopener">PHP</a>、<a href="https://baike.baidu.com/item/Python/407313" target="_blank" rel="noopener">Python</a>、<a href="https://baike.baidu.com/item/Perl/851577" target="_blank" rel="noopener">Perl</a>、<a href="https://baike.baidu.com/item/Ruby/11419" target="_blank" rel="noopener">Ruby</a> 等服务端语言平起平坐的<a href="https://baike.baidu.com/item/脚本语言/1379708" target="_blank" rel="noopener">脚本语言</a>。</p>
+</blockquote>
+<h5 id="关于npm"><a href="#关于npm" class="headerlink" title="关于npm"></a>关于npm</h5><p>npm是node的一个包管理器。之于maven对于java的关系一样，但也有区别。</p>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>首先安装nodejs，下载地址 <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a> ，安装过程记得勾选 <strong>Add to PATH</strong> 以把它加入到系统变量中。安装完成后npm也就已存在了，可以在cmd输入node -v和npm -v查看版本确定是否已安装上。</p>
+<pre class=" language-java"><code class="language-java">node <span class="token operator">-</span>v
+npm <span class="token operator">-</span>v</code></pre>
+<h4 id="2-安装hexo"><a href="#2-安装hexo" class="headerlink" title="2.安装hexo"></a>2.安装hexo</h4><p>控制台输入命令：</p>
+<pre class=" language-java"><code class="language-java">npm install <span class="token operator">-</span>g hexo<span class="token operator">-</span>cli</code></pre>
+<p>等待安装完成即可。</p>
+<p>附上官网上的hexo和node版本兼容情况：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Hexo 版本</th>
+<th align="left">最低兼容 Node.js 版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">5.0+</td>
+<td align="left">10.13.0</td>
+</tr>
+<tr>
+<td align="left">4.1 - 4.2</td>
+<td align="left">8.10</td>
+</tr>
+<tr>
+<td align="left">4.0</td>
+<td align="left">8.6</td>
+</tr>
+<tr>
+<td align="left">3.3 - 3.9</td>
+<td align="left">6.9</td>
+</tr>
+<tr>
+<td align="left">3.2 - 3.3</td>
+<td align="left">0.12</td>
+</tr>
+<tr>
+<td align="left">3.0 - 3.1</td>
+<td align="left">0.10 or iojs</td>
+</tr>
+<tr>
+<td align="left">0.0.1 - 2.8</td>
+<td align="left">0.10</td>
+</tr>
+</tbody></table>
+<p>后续内容持续更新中。。。。。</p>
 
             </div>
             <hr/>
@@ -422,7 +451,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lizxing.github.io/2020/04/27/20042701/">https://lizxing.github.io/2020/04/27/20042701/</a>
+                    <a href="https://lizxing.github.io/2020/08/06/20080601/">https://lizxing.github.io/2020/08/06/20080601/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -503,34 +532,32 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/04/27/20042702/">
+                <a href="/2020/08/06/20080601/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="使用SSH连接数据库示例代码记录">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="手把手教你搭建hexo博客（小白向）">
                         
-                        <span class="card-title">使用SSH连接数据库示例代码记录</span>
+                        <span class="card-title">手把手教你搭建hexo博客（小白向）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            需求：
-数据库使用普通连接失败，需要使用ssh连接方式。
-原本配置：
-oil-pay:
-    url: jdbc:mysql://ip:3306/数据库名?Unicode=true&amp;characterEncoding=UTF-8
-
+                            
+由于最近有些非计算机行业的朋友对这个博客的搭建有兴趣，但是官网和网上的教程都或多或少涉及到一些开发上的东西。所以有了这篇文章，从小白的角度，零开发基础搭建hexo博客。
+关于hexo博客的详细介绍建议到官网瞧一瞧 https://hexo
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-27
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -539,6 +566,7 @@ oil-pay:
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -557,30 +585,32 @@ oil-pay:
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/03/20040301/">
+                <a href="/2020/07/11/20071101/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="关于程序连接远程数据库错误，而使用数据库连接工具正常">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="在springboot中使用mybatis调用sql server存储过程">
                         
-                        <span class="card-title">关于程序连接远程数据库错误，而使用数据库连接工具正常</span>
+                        <span class="card-title">在springboot中使用mybatis调用sql server存储过程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            报错：
+                            
+记录一下在调用存储过程时遇到的问题与解决方法
 
-原因：（待明确）
-上次连接未断开。
-1、程序上在结束时未正常断开，导致服务端已放弃链接而客户端（程序）链接还存在，下次查询时未重新建立链接。
-2、服务端还保留着链接，而客户端（程序）在建立连接时检测到链接已被占用导致异常。
-解决：
+1.微软官网上关于sql server存储过程的执行方法：
+执行系统存储过程
+EXEC sys.sp_who;
+
+执行用户定义的存储过程
+EXEC dbo.uspGetEmployeeMan
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-11
                             </span>
                         <span class="publish-author">
                             
