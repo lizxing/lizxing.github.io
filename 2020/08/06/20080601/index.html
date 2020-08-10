@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="手把手教你搭建hexo博客（小白向）, star talk">
+    <meta name="keywords" content="手把(mo)手教你搭建hexo博客（小白向）, star talk">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>手把手教你搭建hexo博客（小白向） | star talk</title>
+    <title>手把(mo)手教你搭建hexo博客（小白向） | star talk</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -201,12 +201,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">手把手教你搭建hexo博客（小白向）</h1>
+                    <h1 class="description center-align post-title">手把(mo)手教你搭建hexo博客（小白向）</h1>
                 </div>
             </div>
         </div>
@@ -348,7 +348,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    481
+                    1.3k
                 </div>
                 
 
@@ -367,8 +367,8 @@
 <h3 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h3><h4 id="一、搭建篇"><a href="#一、搭建篇" class="headerlink" title="一、搭建篇"></a>一、搭建篇</h4><ol>
 <li>简单认识node,npm等工具</li>
 <li>安装hexo</li>
-<li>修改配置示例</li>
 <li>本地运行</li>
+<li>使用示例</li>
 </ol>
 <h4 id="二、部署篇"><a href="#二、部署篇" class="headerlink" title="二、部署篇"></a>二、部署篇</h4><ol>
 <li>以github作为载体部署博客</li>
@@ -385,9 +385,14 @@
 <h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>首先安装nodejs，下载地址 <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a> ，安装过程记得勾选 <strong>Add to PATH</strong> 以把它加入到系统变量中。安装完成后npm也就已存在了，可以在cmd输入node -v和npm -v查看版本确定是否已安装上。</p>
 <pre class=" language-java"><code class="language-java">node <span class="token operator">-</span>v
 npm <span class="token operator">-</span>v</code></pre>
-<h4 id="2-安装hexo"><a href="#2-安装hexo" class="headerlink" title="2.安装hexo"></a>2.安装hexo</h4><p>控制台输入命令：</p>
+<p><img src="https://pic.downk.cc/item/5f30e8b114195aa5941ba762.png" alt=""></p>
+<h4 id="2-安装hexo"><a href="#2-安装hexo" class="headerlink" title="2.安装hexo"></a>2.安装hexo</h4><p>首先安装hexo脚手架，控制台输入命令：</p>
 <pre class=" language-java"><code class="language-java">npm install <span class="token operator">-</span>g hexo<span class="token operator">-</span>cli</code></pre>
 <p>等待安装完成即可。</p>
+<p>安装完成后同样可以查看版本情况：</p>
+<pre class=" language-java"><code class="language-java">hexo <span class="token operator">-</span>v</code></pre>
+<p>如图：</p>
+<p><img src="https://pic.downk.cc/item/5f30e99414195aa5941becf5.png" alt=""></p>
 <p>附上官网上的hexo和node版本兼容情况：</p>
 <table>
 <thead>
@@ -425,7 +430,55 @@ npm <span class="token operator">-</span>v</code></pre>
 <td align="left">0.10</td>
 </tr>
 </tbody></table>
-<p>后续内容持续更新中。。。。。</p>
+<p>安装完hexo脚手架后，在任意地方（比如d盘）打开cmd执行以下3条命令以拉取所需文件：</p>
+<pre class=" language-java"><code class="language-java">hexo init <span class="token operator">&lt;</span>folder<span class="token operator">></span>
+cd <span class="token operator">&lt;</span>folder<span class="token operator">></span>
+npm install</code></pre>
+<p>分别对应为初始化文件夹，进入文件夹，安装依赖。<folder>为文件夹名称，可任意修改。我这里命名为hexoTest，方面下面解释。</p>
+<p>*这里补充一个打开cmd的方法，可以在指定目录的地址栏直接输入cmd，然后回车即可。</p>
+<p>安装完成后，文件夹里面的目录结构为：</p>
+<p><img src="https://pic.downk.cc/item/5f30f6b814195aa594209fba.png" alt=""></p>
+<p>这里不一一解释所有文件，只挑常用的说明：</p>
+<ul>
+<li>_config.yml 配置文件，全局配置</li>
+<li>source 里面的_posts文件夹，里面存放的就是文章</li>
+<li>themes 存放主题，一般都会根据喜好更改主题，默认的有点丑，主题在官网上有很多</li>
+</ul>
+<h4 id="3-本地运行"><a href="#3-本地运行" class="headerlink" title="3.本地运行"></a>3.本地运行</h4><h5 id="启动试水"><a href="#启动试水" class="headerlink" title="启动试水"></a>启动试水</h5><p>项目根目录下打开cmd，也就是上面hexoTest里面打开，输入以下3条命令</p>
+<pre class=" language-java"><code class="language-java">hexo clean
+hexo g
+hexo s</code></pre>
+<p>分别对应为：清除、生成、本地部署。</p>
+<p>完成后可以看到提示已运行在本地4000端口：</p>
+<p><img src="https://pic.downk.cc/item/5f30f78714195aa59420e6ec.png" alt=""></p>
+<p>然后在浏览器网址输入localhost:4000即可访问，注意cmd此时不能关闭。</p>
+<p><img src="https://pic.downk.cc/item/5f30f7f814195aa594210e8c.png" alt=""></p>
+<p>以上就是默认样式，至此也成功在本地试运行。</p>
+<h4 id="4-使用示例"><a href="#4-使用示例" class="headerlink" title="4.使用示例"></a>4.使用示例</h4><h5 id="修改-config-yml"><a href="#修改-config-yml" class="headerlink" title="修改_config.yml"></a>修改_config.yml</h5><p>打开文件，yml文件可以直接用记事本打开（当然技术人员肯定有自己的吃饭家伙）</p>
+<p>试着改改标题，</p>
+<p>title: Hexo —&gt;title: Test</p>
+<p>修改完成后同样输入上面3条命令重新生成。</p>
+<p>对了，先关闭上面的试运行应用。按提示输入ctrl+c关闭它。或者直接关掉cmd窗口然后再次打开。</p>
+<p><img src="https://pic.downk.cc/item/5f30fa3714195aa59421d49b.png" alt=""></p>
+<p>可以看到标题成功修改了。</p>
+<p>然后对应其他的修改可以看官网详细说明。</p>
+<h5 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h5><p>写文章的话用到的是markdown语法，这种格式一般搞技术的都很熟悉了，对于非技术人员，那可能你得先看一看书写方法，也不难，就几个标签，不需要背，用到查就是了。传送门 <a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/markdown/md-tutorial.html</a> 。</p>
+<p>当然也得下载对应的编辑工具，这里推荐Typora。</p>
+<p>好了回到主题，写文章。</p>
+<p>同样打开cmd窗口，输入</p>
+<pre class=" language-java"><code class="language-java">hexo <span class="token keyword">new</span> <span class="token operator">&lt;</span>title<span class="token operator">></span></code></pre>
+<p>回车后会在source\_posts目录下生成对应文章：</p>
+<p><img src="https://pic.downk.cc/item/5f30fc1214195aa594226e51.png" alt=""></p>
+<p>用markdown编辑工具打开它：</p>
+<p><img src="https://pic.downk.cc/item/5f30fc9914195aa59422a1b9.png" alt=""></p>
+<p>写完记得保存。</p>
+<p>同样地，3条命令。打开网址看看效果：</p>
+<p><img src="https://pic.downk.cc/item/5f30fd1f14195aa59422ccdd.png" alt=""></p>
+<p>可以看到新增的文章有了。</p>
+<p>hexo不仅有很多主题，插件也十分丰富，再次说明，官网上应有尽有。</p>
+<p>到这里，基本的使用就讲解的差不多了，但是不可能就只在本地运行给自己看对不对，好文章肯定希望分享给大家，给大家指点，让自己提升（zhuangbi）一下。</p>
+<p>那么接下来就是部署到公网上面的教程了。</p>
+<p>未完待续。。。</p>
 
             </div>
             <hr/>
@@ -541,9 +594,9 @@ npm <span class="token operator">-</span>v</code></pre>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="手把手教你搭建hexo博客（小白向）">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="手把(mo)手教你搭建hexo博客（小白向）">
                         
-                        <span class="card-title">手把手教你搭建hexo博客（小白向）</span>
+                        <span class="card-title">手把(mo)手教你搭建hexo博客（小白向）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -777,7 +830,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">10.8k</span>&nbsp;字
+                class="white-color">11.5k</span>&nbsp;字
             
             
             
