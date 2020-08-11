@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="关于在Springboot中同时使用@AllArgsConstructor和@Value出现的问题, star talk">
+    <meta name="keywords" content="跨域处理与测试, star talk">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>关于在Springboot中同时使用@AllArgsConstructor和@Value出现的问题 | star talk</title>
+    <title>跨域处理与测试 | star talk</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -201,12 +201,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">关于在Springboot中同时使用@AllArgsConstructor和@Value出现的问题</h1>
+                    <h1 class="description center-align post-title">跨域处理与测试</h1>
                 </div>
             </div>
         </div>
@@ -323,8 +323,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">
-                                <span class="chip bg-color">踩坑记录</span>
+                            <a href="/tags/%E6%8A%80%E6%9C%AF%E8%AE%B0%E5%BD%95/">
+                                <span class="chip bg-color">技术记录</span>
                             </a>
                         
                     </div>
@@ -339,7 +339,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-06-24
+                    2020-08-11
                 </div>
                 
 
@@ -348,7 +348,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    96
+                    313
                 </div>
                 
 
@@ -360,19 +360,52 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><strong>场景：</strong></p>
-<ul>
-<li><p>类上用@AllArgsConstructor注解来实现Bean的构造函数方式的注入 </p>
-</li>
-<li><p>参数包括@Value注解下的属性</p>
-</li>
-</ul>
-<p><strong>报错：</strong></p>
-<pre class=" language-java"><code class="language-java">Description<span class="token operator">:</span>
-Parameter <span class="token number">8</span> of constructor in com<span class="token punctuation">.</span>zhongkerd<span class="token punctuation">.</span>job<span class="token punctuation">.</span>service<span class="token punctuation">.</span>jobhandler<span class="token punctuation">.</span>kalibrate<span class="token punctuation">.</span>KalibrateOilPriceServiceImpl required a bean of type <span class="token string">'java.lang.String'</span> that could not be found<span class="token punctuation">.</span>
-无法找到配置信息。</code></pre>
-<p><strong>解决：</strong></p>
-<p>若类内有@Value注解，使用@RequiredArgsConstructor代替@AllArgsConstructor，然后把需要注入的bean改成final类型。</p>
+                <blockquote>
+<p>如今项目以前后端分离居多，简单记录一下跨域相关处理。</p>
+</blockquote>
+<h4 id="springboot跨域配置"><a href="#springboot跨域配置" class="headerlink" title="springboot跨域配置"></a>springboot跨域配置</h4><p>新建过滤器Filter，一般放在项目config目录下</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@WebFilter</span><span class="token punctuation">(</span>filterName <span class="token operator">=</span> <span class="token string">"CorsFilter "</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CorsFilter</span> <span class="token keyword">implements</span> <span class="token class-name">Filter</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doFilter</span><span class="token punctuation">(</span>ServletRequest req<span class="token punctuation">,</span> ServletResponse res<span class="token punctuation">,</span> FilterChain chain<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException<span class="token punctuation">,</span> ServletException <span class="token punctuation">{</span>
+        HttpServletResponse response <span class="token operator">=</span> <span class="token punctuation">(</span>HttpServletResponse<span class="token punctuation">)</span> res<span class="token punctuation">;</span>
+        response<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"Access-Control-Allow-Origin"</span><span class="token punctuation">,</span><span class="token string">"*"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        response<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"Access-Control-Allow-Credentials"</span><span class="token punctuation">,</span> <span class="token string">"true"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        response<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"Access-Control-Allow-Methods"</span><span class="token punctuation">,</span> <span class="token string">"POST, GET, PATCH, DELETE, PUT"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        response<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"Access-Control-Max-Age"</span><span class="token punctuation">,</span> <span class="token string">"3600"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        response<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"Access-Control-Allow-Headers"</span><span class="token punctuation">,</span> <span class="token string">"Origin, X-Requested-With, Content-Type, Accept, x-token"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        chain<span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span>req<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>一般根据项目前端具体需求开放对应请求。</p>
+<h4 id="跨域测试"><a href="#跨域测试" class="headerlink" title="跨域测试"></a>跨域测试</h4><p>首先准备测试类：</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestController</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/testFilter"</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@PassScheduleInfo</span>
+    <span class="token keyword">public</span> String <span class="token function">testFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"模拟返回"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>测试方法有很多种，本地编写一个简单的请求js，用postman工具等都可以，这里用一种更加方便的测试方法：浏览器控制台。</p>
+<p>F12打开console，直接输入：</p>
+<pre class=" language-java"><code class="language-java">var xhr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">XMLHttpRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+xhr<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token string">'GET'</span><span class="token punctuation">,</span> <span class="token string">'http://127.0.0.1:8080/test/testFilter'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+xhr<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
+xhr<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token function">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    var xhr <span class="token operator">=</span> e<span class="token punctuation">.</span>target<span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>responseText<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>若有token可在send()前加上，</p>
+<pre class=" language-java"><code class="language-java">var token<span class="token operator">=</span> <span class="token string">"......"</span>
+xhr<span class="token punctuation">.</span><span class="token function">setRequestHeader</span><span class="token punctuation">(</span><span class="token string">"x-access-token"</span><span class="token punctuation">,</span>token<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>首先注释掉过滤器，回车访问，得到结果：</p>
+<p><img src="https://pic.downk.cc/item/5f32493f14195aa594964225.png" alt=""></p>
+<p>加上过滤器后，再次访问：</p>
+<p><img src="https://pic.downk.cc/item/5f3249d714195aa594967948.png" alt=""></p>
+<p>成功返回，证明过滤器有效，测试方法也简单实用。</p>
 
             </div>
             <hr/>
@@ -398,7 +431,7 @@ Parameter <span class="token number">8</span> of constructor in com<span class="
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lizxing.github.io/2020/06/24/20062401/">https://lizxing.github.io/2020/06/24/20062401/</a>
+                    <a href="https://lizxing.github.io/2020/08/11/20081101/">https://lizxing.github.io/2020/08/11/20081101/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -436,8 +469,8 @@ Parameter <span class="token number">8</span> of constructor in com<span class="
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">
-                                    <span class="chip bg-color">踩坑记录</span>
+                                <a href="/tags/%E6%8A%80%E6%9C%AF%E8%AE%B0%E5%BD%95/">
+                                    <span class="chip bg-color">技术记录</span>
                                 </a>
                             
                         </div>
@@ -479,41 +512,35 @@ Parameter <span class="token number">8</span> of constructor in com<span class="
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/06/30/20063001/">
+                <a href="/2020/08/11/20081101/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="redis总结与在java中的简单使用">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="跨域处理与测试">
                         
-                        <span class="card-title">redis总结与在java中的简单使用</span>
+                        <span class="card-title">跨域处理与测试</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             
-本文简单记录redis的相关总结与简单使用
+如今项目以前后端分离居多，简单记录一下跨域相关处理。
 
-目录：一、使用篇
-简单认识redis
-redis的安装与启动
-springboot集成redis与简单使用
-redis用作分布式锁
-
-二、总结篇
-redis的数据类型
-redis的持久化机制
-
+springboot跨域配置新建过滤器Filter，一般放在项目config目录下
+@WebFilter(filterName = "CorsFilter ")
+@Configura
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-11
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -522,6 +549,7 @@ redis的持久化机制
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -540,28 +568,26 @@ redis的持久化机制
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/08/20050802/">
+                <a href="/2020/08/06/20080601/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="修改springboot中默认日志logback的配置">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="手把(mo)手教你搭建hexo博客(小白向)">
                         
-                        <span class="card-title">修改springboot中默认日志logback的配置</span>
+                        <span class="card-title">手把(mo)手教你搭建hexo博客(小白向)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            需求：
-修改日志配置使得日志按要求每日生成文件。
-默认配置：
-springboot默认使用logback作为日志框架，默认配置在以下路径：
-apache-maven-3.6.1\respository\org\springframework
+                            
+由于最近有些非计算机行业的朋友对这个博客的搭建有兴趣，但是官网和网上的教程都或多或少涉及到一些开发上的东西。所以有了这篇文章，从小白的角度，零开发基础搭建hexo博客。
+关于hexo博客的详细介绍建议到官网瞧一瞧 https://hexo
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-06
                             </span>
                         <span class="publish-author">
                             
