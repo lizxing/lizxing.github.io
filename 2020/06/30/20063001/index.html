@@ -348,7 +348,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.4k
+                    5.8k
                 </div>
                 
 
@@ -400,8 +400,12 @@
 <h4 id="2-redis的安装与启动"><a href="#2-redis的安装与启动" class="headerlink" title="2.redis的安装与启动"></a>2.redis的安装与启动</h4><p>安装步骤不再详细写出，参考<a href="https://www.runoob.com/redis/redis-install.html" target="_blank" rel="noopener">菜鸟教程-redis安装</a></p>
 <p>windows下：</p>
 <p>启动：进入redis目录，打开cmd，输入命令“redis-server redis.windows.conf”以开启redis服务。注意不能关闭cmd窗口。（当然可以把服务注册到windows系统服务以在后台运行，这里先不给出）</p>
-<p><img src="https://pic.downk.cc/item/5f2a0b7b14195aa594af13ff.png" alt=""></p>
+<p><img src="https://pic.downk.cc/item/5f49f7a9160a154a67fc44c9.png" alt=""></p>
 <p>连接到redis数据库：再开一个cmd窗口，输入命令”redis-cli -h localhost -p 6379” (默认端口为6379，没有密码)</p>
+<p>尝试插入一个key，输入“set aaa 111”，回车：</p>
+<p><img src="https://pic.downk.cc/item/5f49fc84160a154a67fdbdd6.png" alt=""></p>
+<p>一般会下载redis界面化客户端方便查看数据，<a href="https://www.redis.com.cn/clients" target="_blank" rel="noopener">官网下载</a>。</p>
+<p><img src="https://pic.downk.cc/item/5f49fcd8160a154a67fdd6a2.png" alt=""></p>
 <h4 id="3-springboot集成redis与简单使用"><a href="#3-springboot集成redis与简单使用" class="headerlink" title="3.springboot集成redis与简单使用"></a>3.springboot集成redis与简单使用</h4><h5 id="3-1-数据准备"><a href="#3-1-数据准备" class="headerlink" title="3-1.数据准备"></a>3-1.数据准备</h5><pre class=" language-java"><code class="language-java">create table <span class="token function">user</span><span class="token punctuation">(</span>
   id <span class="token keyword">int</span> primary key auto_increment<span class="token punctuation">,</span>
   name <span class="token function">varchar</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -662,7 +666,7 @@ spring<span class="token punctuation">.</span>redis<span class="token punctuatio
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 <p><img src="https://pic.downk.cc/item/5f2a0bc014195aa594af30d2.png" alt=""></p>
-<h5 id="3-10-关于注解方式"><a href="#3-10-关于注解方式" class="headerlink" title="3-10.关于注解方式"></a>3-10.关于注解方式</h5><p>以上，可以测试redis的简单使用。当然，也可以使用注解的方式来实现。</p>
+<h5 id="3-10-关于注解方式"><a href="#3-10-关于注解方式" class="headerlink" title="3-10.关于注解方式"></a>3-10.关于注解方式</h5><p>以上就是java使用redis作为缓存数据库的用法。当然，也可以使用注解的方式来实现。</p>
 <p> <a href="https://segmentfault.com/a/1190000017057950" target="_blank" rel="noopener">https://segmentfault.com/a/1190000017057950</a> 可参考此连接进行相关配置。</p>
 <h4 id="4-redis用作分布式锁"><a href="#4-redis用作分布式锁" class="headerlink" title="4.redis用作分布式锁"></a>4.redis用作分布式锁</h4><h5 id="4-1-关于锁"><a href="#4-1-关于锁" class="headerlink" title="4-1.关于锁"></a>4-1.关于锁</h5><ul>
 <li>线程锁：主要用来给方法、代码块加锁。当某个方法或者代码块使用锁时，那么在同一时刻至多仅有有一个线程在执行该段代码。当有多个线程访问同一对象的加锁方法/代码块时，同一时间只有一个线程在执行，其余线程必须要等待当前线程执行完之后才能执行该代码段。 例如在java中的synchronized和lock。</li>
@@ -677,6 +681,7 @@ spring<span class="token punctuation">.</span>redis<span class="token punctuatio
 </ul>
 <h5 id="4-3-redis用作分布式锁的相关命令"><a href="#4-3-redis用作分布式锁的相关命令" class="headerlink" title="4-3.redis用作分布式锁的相关命令"></a>4-3.redis用作分布式锁的相关命令</h5><ul>
 <li>setnx。setnx当且仅当 key 不存在。若给定的 key 已经存在，则 setnx不做任何动作。setnx 是『set if not exists』(如果不存在，则 set)的简写,setnx 具有原子性。 </li>
+<li>incr。 将 key 中储存的数字值增一。如果 key 不存在，那么 key 的值会先被初始化为 0 ，然后再执行 INCR 操作。如果值包含错误的类型，或字符串类型的值不能表示为数字，那么返回一个错误。 </li>
 <li>getset。getset先 get 旧值，后set 新值，并返回 key 的旧值(old value），具有原子性。当 key 存在但不是字符串类型时，返回一个错误;当key 不存在的时候，返回nil ，在Java里就是 null。  </li>
 <li>expire 设置 key 的有效期 </li>
 <li>del 删除 key </li>
@@ -688,14 +693,84 @@ spring<span class="token punctuation">.</span>redis<span class="token punctuatio
 <li>如返回0，表明该锁已被其他客户端取得，这时我们可以先返回或进行重试等对方完成或等待锁超时。</li>
 </ul>
 </blockquote>
-<h5 id="4-4-基于缓存redis，使用开源-redisson-实现分布式锁"><a href="#4-4-基于缓存redis，使用开源-redisson-实现分布式锁" class="headerlink" title="4-4.基于缓存redis，使用开源 redisson 实现分布式锁"></a>4-4.基于缓存redis，使用开源 redisson 实现分布式锁</h5><p>参考文章<a href="https://blog.csdn.net/zhangcongyi420/article/details/89980469" target="_blank" rel="noopener">SpringBoot整合redisson分布式锁</a></p>
-<h6 id="4-4-1-引入依赖"><a href="#4-4-1-引入依赖" class="headerlink" title="4-4-1.引入依赖"></a>4-4-1.引入依赖</h6><pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span>dependency<span class="token operator">></span>
+<h5 id="4-4-分布式锁的简单例子"><a href="#4-4-分布式锁的简单例子" class="headerlink" title="4-4.分布式锁的简单例子"></a>4-4.分布式锁的简单例子</h5><h6 id="4-4-1-redisUtil类增加setnx对应封装方法："><a href="#4-4-1-redisUtil类增加setnx对应封装方法：" class="headerlink" title="4-4-1.redisUtil类增加setnx对应封装方法："></a>4-4-1.redisUtil类增加setnx对应封装方法：</h6><pre class=" language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/**
+     * setnx
+     * @param key 键
+     * @param value 值
+     * @return true成功 false失败
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">setnx</span><span class="token punctuation">(</span>String key<span class="token punctuation">,</span>Object value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> redisTemplate<span class="token punctuation">.</span><span class="token function">opsForValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setIfAbsent</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * setnx
+     * @param key 键
+     * @param value 值
+     * @param time 时间(秒) time要大于0 如果time小于等于0 将设置无限期
+     * @return true成功 false 失败
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">setnx</span><span class="token punctuation">(</span>String key<span class="token punctuation">,</span>Object value<span class="token punctuation">,</span><span class="token keyword">long</span> time<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>time<span class="token operator">></span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">return</span> redisTemplate<span class="token punctuation">.</span><span class="token function">opsForValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setIfAbsent</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">,</span> time<span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token function">setnx</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></code></pre>
+<h6 id="4-4-2-创建一个分布式锁的应用测试方法"><a href="#4-4-2-创建一个分布式锁的应用测试方法" class="headerlink" title="4-4-2.创建一个分布式锁的应用测试方法"></a>4-4-2.创建一个分布式锁的应用测试方法</h6><pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">void</span> <span class="token function">testRedis2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        String lockKey <span class="token operator">=</span> <span class="token string">"lockKey"</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> flag <span class="token operator">=</span> redisUtil<span class="token punctuation">.</span><span class="token function">setnx</span><span class="token punctuation">(</span>lockKey<span class="token punctuation">,</span> <span class="token number">1</span> <span class="token operator">+</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>flag<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> stock <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token punctuation">(</span>String<span class="token punctuation">)</span> redisUtil<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"stock"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>stock <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">// 库存-1</span>
+                    <span class="token operator">--</span>stock<span class="token punctuation">;</span>
+                    redisUtil<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"stock"</span><span class="token punctuation">,</span> stock <span class="token operator">+</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"交易成功，库存为："</span> <span class="token operator">+</span> stock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"交易失败，库存为："</span> <span class="token operator">+</span> stock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+                redisUtil<span class="token punctuation">.</span><span class="token function">del</span><span class="token punctuation">(</span><span class="token string">"lockKey"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></code></pre>
+<p>简要说明：</p>
+<p>要点一、必须有finally把“锁”（即key）删掉，避免在运行此方法的过程中遇到异常，导致锁一直在，造成后续无法交易的问题。</p>
+<p>要点二、必须给锁设置过期时间，避免比如服务器崩溃时（finally也没执行）的情况下锁一致在。</p>
+<h6 id="4-4-3-设置stock初始值并进行压测"><a href="#4-4-3-设置stock初始值并进行压测" class="headerlink" title="4-4-3.设置stock初始值并进行压测"></a>4-4-3.设置stock初始值并进行压测</h6><p>可以把测试方法写成正式的接口，用压力测试工具jmeter来进行测试。这里不详细给出测试过程。</p>
+<p>测试结果我们发现，没有出现“超卖”的现象。但有问题</p>
+<ul>
+<li><p>仅有1个线程成功。可能请求量不够。</p>
+</li>
+<li><p>其他问题，比如我们设置了10s过期时间，但是由于某种原因，10s内没执行完毕，导致线程2（另外一个请求）获得了锁，进入了业务代码段。这里的解决方法可以是，给线程1新增一个子线程，作为监控的作用，比如每隔5秒，查看业务代码段是否已经真正完成了，若未完成，延长超时时间。</p>
+</li>
+</ul>
+<p>但是经验告诉我们，往往我们想到的问题已经有了解决方案，以下介绍一个强大的框架，它不仅解决了这些问题，还有很多丰富的功能。</p>
+<h5 id="4-5-使用开源-redisson-实现分布式锁"><a href="#4-5-使用开源-redisson-实现分布式锁" class="headerlink" title="4-5.使用开源 redisson 实现分布式锁"></a>4-5.使用开源 redisson 实现分布式锁</h5><blockquote>
+<p>官网介绍：</p>
+<h1 id="Redisson-Redis-Java-client-with-features-of-In-Memory-Data-Grid"><a href="#Redisson-Redis-Java-client-with-features-of-In-Memory-Data-Grid" class="headerlink" title="Redisson - Redis Java client with features of In-Memory Data Grid"></a>Redisson - Redis Java client with features of In-Memory Data Grid</h1></blockquote>
+<p>现在尝试使用它：</p>
+<h6 id="4-5-1-引入依赖"><a href="#4-5-1-引入依赖" class="headerlink" title="4-5-1.引入依赖"></a>4-5-1.引入依赖</h6><pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span>dependency<span class="token operator">></span>
     <span class="token operator">&lt;</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>redisson<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
     <span class="token operator">&lt;</span>artifactId<span class="token operator">></span>redisson<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
     <span class="token operator">&lt;</span>version<span class="token operator">></span><span class="token number">3.5</span><span class="token punctuation">.</span><span class="token number">0</span><span class="token operator">&lt;</span><span class="token operator">/</span>version<span class="token operator">></span>
 <span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span></code></pre>
-<h6 id="4-4-2-配置文件"><a href="#4-4-2-配置文件" class="headerlink" title="4-4-2.配置文件"></a>4-4-2.配置文件</h6><pre class=" language-java"><code class="language-java">redisson<span class="token punctuation">.</span>address<span class="token operator">=</span>redis<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span></code></pre>
-<h6 id="4-4-3-配置类"><a href="#4-4-3-配置类" class="headerlink" title="4-4-3.配置类"></a>4-4-3.配置类</h6><p>redisson基本配置类，也是大家熟悉的套路，因为redisson支持多种模式下的配置，比如单机、集群、哨兵模式等，都可以根据实际业务需要进行配置，这里为演示方便使用单机配置。</p>
+<h6 id="4-5-2-配置文件"><a href="#4-5-2-配置文件" class="headerlink" title="4-5-2.配置文件"></a>4-5-2.配置文件</h6><pre class=" language-java"><code class="language-java">redisson<span class="token punctuation">.</span>address<span class="token operator">=</span>redis<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span></code></pre>
+<h6 id="4-5-3-配置类"><a href="#4-5-3-配置类" class="headerlink" title="4-5-3.配置类"></a>4-5-3.配置类</h6><p>redisson基本配置类，也是大家熟悉的套路，因为redisson支持多种模式下的配置，比如单机、集群、哨兵模式等，都可以根据实际业务需要进行配置，这里为演示方便使用单机配置。</p>
 <pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RedissonManager</span> <span class="token punctuation">{</span>
 
@@ -715,115 +790,50 @@ spring<span class="token punctuation">.</span>redis<span class="token punctuatio
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h6 id="4-4-4-redisson操作锁的API接口类"><a href="#4-4-4-redisson操作锁的API接口类" class="headerlink" title="4-4-4. redisson操作锁的API接口类"></a>4-4-4. redisson操作锁的API接口类</h6><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">DistributedLocker</span> <span class="token punctuation">{</span>
-
-    RLock <span class="token function">lock</span><span class="token punctuation">(</span>String lockKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    RLock <span class="token function">lock</span><span class="token punctuation">(</span>String lockKey<span class="token punctuation">,</span> <span class="token keyword">long</span> timeout<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    RLock <span class="token function">lock</span><span class="token punctuation">(</span>String lockKey<span class="token punctuation">,</span> TimeUnit unit<span class="token punctuation">,</span> <span class="token keyword">long</span> timeout<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">boolean</span> <span class="token function">tryLock</span><span class="token punctuation">(</span>String lockKey<span class="token punctuation">,</span> TimeUnit unit<span class="token punctuation">,</span> <span class="token keyword">long</span> waitTime<span class="token punctuation">,</span> <span class="token keyword">long</span> leaseTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">void</span> <span class="token function">unlock</span><span class="token punctuation">(</span>String lockKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">void</span> <span class="token function">unlock</span><span class="token punctuation">(</span>RLock lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token punctuation">}</span></code></pre>
-<h6 id="4-4-5-接口实现类"><a href="#4-4-5-接口实现类" class="headerlink" title="4-4-5.接口实现类"></a>4-4-5.接口实现类</h6><pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RedissonDistributedLocker</span> <span class="token keyword">implements</span> <span class="token class-name">DistributedLocker</span> <span class="token punctuation">{</span>
-
-    <span class="token annotation punctuation">@Autowired</span>
-    <span class="token keyword">private</span> RedissonClient redissonClient<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// RedissonClient已经由配置类生成，这里自动装配即可</span>
-
-    <span class="token comment" spellcheck="true">// lock(), 拿不到lock就不罢休，不然线程就一直block</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> RLock <span class="token function">lock</span><span class="token punctuation">(</span>String lockKey<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        RLock lock <span class="token operator">=</span> redissonClient<span class="token punctuation">.</span><span class="token function">getLock</span><span class="token punctuation">(</span>lockKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        lock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> lock<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">// leaseTime为加锁时间，单位为秒</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> RLock <span class="token function">lock</span><span class="token punctuation">(</span>String lockKey<span class="token punctuation">,</span> <span class="token keyword">long</span> leaseTime<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        RLock lock <span class="token operator">=</span> redissonClient<span class="token punctuation">.</span><span class="token function">getLock</span><span class="token punctuation">(</span>lockKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        lock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span>leaseTime<span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">// timeout为加锁时间，时间单位由unit确定</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> RLock <span class="token function">lock</span><span class="token punctuation">(</span>String lockKey<span class="token punctuation">,</span> TimeUnit unit<span class="token punctuation">,</span> <span class="token keyword">long</span> timeout<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        RLock lock <span class="token operator">=</span> redissonClient<span class="token punctuation">.</span><span class="token function">getLock</span><span class="token punctuation">(</span>lockKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        lock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span>timeout<span class="token punctuation">,</span> unit<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> lock<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">tryLock</span><span class="token punctuation">(</span>String lockKey<span class="token punctuation">,</span> TimeUnit unit<span class="token punctuation">,</span> <span class="token keyword">long</span> waitTime<span class="token punctuation">,</span> <span class="token keyword">long</span> leaseTime<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        RLock lock <span class="token operator">=</span> redissonClient<span class="token punctuation">.</span><span class="token function">getLock</span><span class="token punctuation">(</span>lockKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> lock<span class="token punctuation">.</span><span class="token function">tryLock</span><span class="token punctuation">(</span>waitTime<span class="token punctuation">,</span> leaseTime<span class="token punctuation">,</span> unit<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unlock</span><span class="token punctuation">(</span>String lockKey<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        RLock lock <span class="token operator">=</span> redissonClient<span class="token punctuation">.</span><span class="token function">getLock</span><span class="token punctuation">(</span>lockKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unlock</span><span class="token punctuation">(</span>RLock lock<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span></code></pre>
-<h6 id="4-4-6-测试"><a href="#4-4-6-测试" class="headerlink" title="4-4-6.测试"></a>4-4-6.测试</h6><pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/redisson"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LockTestController</span> <span class="token punctuation">{</span>
-
-    <span class="token annotation punctuation">@Autowired</span>
-    <span class="token keyword">private</span> DistributedLocker distributedLocker<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">redissonTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        String key <span class="token operator">=</span> <span class="token string">"redisson_key"</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            Thread t <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<h5 id="4-5-4-新增分布式锁测试方法"><a href="#4-5-4-新增分布式锁测试方法" class="headerlink" title="4-5-4.新增分布式锁测试方法"></a>4-5-4.新增分布式锁测试方法</h5><pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">void</span> <span class="token function">threadTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">int</span> threadCount <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+        <span class="token keyword">final</span> CountDownLatch latch <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CountDownLatch</span><span class="token punctuation">(</span>threadCount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span> threadCount<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token annotation punctuation">@Override</span>
                 <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    <span class="token keyword">try</span> <span class="token punctuation">{</span>
-                        System<span class="token punctuation">.</span>err<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"=============线程开启============"</span> <span class="token operator">+</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                        <span class="token comment" spellcheck="true">/*
-                         * distributedLocker.lock(key,10L); //直接加锁，获取不到锁则一直等待获取锁
-                         * Thread.sleep(100); //获得锁之后可以进行相应的处理
-                         * System.err.println("======获得锁后进行相应的操作======"+Thread.
-                         * currentThread().getName());
-                         * distributedLocker.unlock(key); //解锁
-                         * System.err.println("============================="+
-                         * Thread.currentThread().getName());
-                         */</span>
-                        <span class="token keyword">boolean</span> isGetLock <span class="token operator">=</span> distributedLocker<span class="token punctuation">.</span><span class="token function">tryLock</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">,</span> 5L<span class="token punctuation">,</span> 10L<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 尝试获取锁，等待5秒，自己获得锁后一直不解锁则10秒后自动解锁</span>
-                        <span class="token keyword">if</span> <span class="token punctuation">(</span>isGetLock<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程:"</span> <span class="token operator">+</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">",获取到了锁"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                            Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 获得锁之后可以进行相应的处理</span>
-                            System<span class="token punctuation">.</span>err<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"======获得锁后进行相应的操作======"</span> <span class="token operator">+</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                            <span class="token comment" spellcheck="true">//distributedLocker.unlock(key);</span>
-                            System<span class="token punctuation">.</span>err<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"============================="</span> <span class="token operator">+</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                        <span class="token punctuation">}</span>
-                    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    <span class="token punctuation">}</span>
+                    <span class="token function">testRedis3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    latch<span class="token punctuation">.</span><span class="token function">countDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
                 <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            t<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            latch<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>threadCount<span class="token operator">+</span><span class="token string">"个线程已经执行完毕"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">void</span> <span class="token function">testRedis3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        String lockKey <span class="token operator">=</span> <span class="token string">"lockKey"</span><span class="token punctuation">;</span>
+        RLock lock <span class="token operator">=</span> redisson<span class="token punctuation">.</span><span class="token function">getLock</span><span class="token punctuation">(</span>lockKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            lock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> stock <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token punctuation">(</span>String<span class="token punctuation">)</span> redisUtil<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"stock"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>stock <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 库存-1</span>
+                <span class="token operator">--</span>stock<span class="token punctuation">;</span>
+                redisUtil<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"stock"</span><span class="token punctuation">,</span> stock <span class="token operator">+</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程id="</span> <span class="token operator">+</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"交易成功，库存为："</span> <span class="token operator">+</span> stock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程id="</span> <span class="token operator">+</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"交易失败，库存为："</span> <span class="token operator">+</span> stock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token keyword">finally</span> <span class="token punctuation">{</span>
+            lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></code></pre>
+<p>我们用CountDownLatch类来创建多个线程并发执行，模拟网络请求，测试结果：</p>
+<p><img src="https://pic.downk.cc/item/5f4a2abd160a154a670d5d93.png" alt=""></p>
+<p>共100个请求，只有前10个交易成功，符合预期效果。</p>
+<p>至此，完成使用redisson实现分布式锁。</p>
 <p>本次示例demo源码地址 <a href="https://github.com/lizxing/redis-demo" target="_blank" rel="noopener">https://github.com/lizxing/redis-demo</a> </p>
 <h3 id="二、总结篇-1"><a href="#二、总结篇-1" class="headerlink" title="二、总结篇"></a>二、总结篇</h3><hr>
 <h4 id="1-redis的数据类型"><a href="#1-redis的数据类型" class="headerlink" title="1.redis的数据类型"></a>1.redis的数据类型</h4><ul>
@@ -1313,7 +1323,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">12.7k</span>&nbsp;字
+                class="white-color">13.1k</span>&nbsp;字
             
             
             
